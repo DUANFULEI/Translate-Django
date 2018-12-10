@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>简单翻译</title>
+    <style>
+        input {
+            border: 1px solid #ccc;
+            margin: 5px 5px 5px 10%;
+            border-radius: 3px;
+            padding-left: 5px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            width: 35%;
+            height: 50px;
+
+        }
+
+        input:focus {
+            border-color: #66afe9;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
+        }
+
+        button { /* 按钮美化 */
+            width: 100px; /* 宽度 */
+            height: 50px; /* 高度 */
+            border-width: 0px; /* 边框宽度 */
+            border-radius: 3px; /* 边框半径 */
+            background: #1E90FF; /* 背景颜色 */
+            cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+            outline: none; /* 不显示轮廓线 */
+            font-family: Microsoft YaHei; /* 设置字体 */
+            color: white; /* 字体颜色 */
+            font-size: 17px; /* 字体大小 */
+            margin: 5px 5px 5px 10%;
+        }
+
+        button:hover { /* 鼠标移入按钮范围时改变颜色 */
+            background: #5599FF;
+        }
+
+    </style>
+</head>
+<body>
+<form action="" method="post">
+    {% csrf_token %}
+    {#    <div style="width: 318px;text-align:center">#}
+    {#        <div class="form-group" style="width: 230px; padding: 30px 5px 30px 30px;">#}
+    <span style="text-align: left;">{{ fanyi_form.fanyi_content }}</span>
+    {#        </div>#}
+    <button type="submit" class="btn btn-default" style="margin:0.001% 30px 30px 0.00001%;">翻译</button>
+    {% if fanyi_dict %}
+        <div class="fanyitext"
+             style="width: 40%;  padding: 10px; margin-left: 10%; border: 1px solid rgba(0,0,0,0.05);">
+            <p>翻译结果</p>
+            <p>*************************</p>
+            <p><b>【{{ fanyi_dict.q }}】</b></p>
+            <p><span>英：</span>
+                <span style="color: #a0a0a0;">[{{ fanyi_dict.yinshi }}]</span>
+                <span style="margin-left: 20px">美：</span>
+                <span style="color: #a0a0a0;">[{{ fanyi_dict.meishi }}]</span>
+            </p>
+            {% for explains in fanyi_dict.explains_list %}
+                <p>{{ explains }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {#    </div>#}
+</form>
+
+</body>
+</html>
